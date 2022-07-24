@@ -23,19 +23,27 @@ def randomWord():
     return random.choice(data)
 
 
-wordList = removeAccent()
-word = randomWord()
+def checkWord(guess):
+    data = removeAccent()
+    if guess in data:
+        return True
+    else:
+        return False
 
 
 def main():
-    guess = input('Enter a word: ').lower()
-    n = 0
     endOfGame = False
+    n = 0
+    word = randomWord()
+    guess = input('Enter a word: ').lower()
     while not endOfGame:
-        if guess == word:
+        if type(guess) != str or len(guess) != len(word):
+            print('Invalid input, please try again')
+            guess = input('Enter a word: ').lower()
+        elif guess == word:
             print('Congratulations, you won!')
             endOfGame = True
-        elif guess not in wordList:
+        elif checkWord(guess) == False:
             print('The word is not in the list')
             guess = input('Enter a word: ').lower()
         else:
